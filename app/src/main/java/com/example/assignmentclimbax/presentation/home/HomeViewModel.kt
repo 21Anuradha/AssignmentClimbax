@@ -42,7 +42,10 @@ class HomeViewModel(
     val hasMorePages: LiveData<Boolean> = _hasMorePages
 
     val cartQuantities: LiveData<Map<Int, Int>> =
-        observeCartQuantitiesUseCase().asLiveData()
+        observeCartQuantitiesUseCase().asLiveData(viewModelScope.coroutineContext)
+
+    private val _addToCartMessage = MutableLiveData<String?>()
+    val addToCartMessage: LiveData<String?> = _addToCartMessage
 
     private val searchQueryFlow = MutableStateFlow("")
     private var loadJob: Job? = null
@@ -131,7 +134,14 @@ class HomeViewModel(
     }
 
     fun addToCart(product: Product) {
-        viewModelScope.launch { addToCartUseCase(product) }
+        viewModelScope.launch {
+            addToCartUseCase(product)
+            _addToCartMessage.postValue(product.title)
+        }
+    }
+
+    fun clearAddToCartMessage() {
+        _addToCartMessage.value = null
     }
 
     fun incrementCart(productId: Int) {

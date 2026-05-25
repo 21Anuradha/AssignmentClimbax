@@ -6,10 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import com.google.android.material.snackbar.Snackbar
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.assignmentclimbax.AssignmentApplication
+import com.example.assignmentclimbax.R
 import com.example.assignmentclimbax.databinding.FragmentHomeBinding
 import com.example.assignmentclimbax.presentation.common.Resource
 
@@ -84,6 +86,15 @@ class HomeFragment : Fragment() {
         }
         viewModel.cartQuantities.observe(viewLifecycleOwner) { quantities ->
             productAdapter.updateCartQuantities(quantities)
+        }
+        viewModel.addToCartMessage.observe(viewLifecycleOwner) { title ->
+            title ?: return@observe
+            Snackbar.make(
+                binding.root,
+                getString(R.string.added_to_cart, title),
+                Snackbar.LENGTH_SHORT
+            ).show()
+            viewModel.clearAddToCartMessage()
         }
         viewModel.isLoadingMore.observe(viewLifecycleOwner) { loading ->
             binding.progressLoadMore.visibility = if (loading == true) View.VISIBLE else View.GONE

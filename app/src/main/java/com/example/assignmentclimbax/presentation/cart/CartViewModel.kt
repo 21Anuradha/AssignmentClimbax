@@ -1,7 +1,6 @@
 package com.example.assignmentclimbax.presentation.cart
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -14,6 +13,7 @@ import com.example.assignmentclimbax.domain.usecase.DecrementCartQuantityUseCase
 import com.example.assignmentclimbax.domain.usecase.IncrementCartQuantityUseCase
 import com.example.assignmentclimbax.domain.usecase.ObserveCartItemsUseCase
 import com.example.assignmentclimbax.presentation.common.Resource
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 class CartViewModel(
@@ -24,26 +24,17 @@ class CartViewModel(
     private val authRepository: AuthRepository
 ) : ViewModel() {
 
-    val cartItems: LiveData<List<CartItem>> = observeCartItemsUseCase().asLiveData()
+    val cartUiState: LiveData<CartUiState> = observeCartItemsUseCase()
+        .map { items -> buildUiState(items) }
+        .asLiveData(viewModelScope.coroutineContext)
 
     private val _checkoutState = MutableLiveData<Resource<Unit>?>()
     val checkoutState: LiveData<Resource<Unit>?> = _checkoutState
 
-    val cartUiState: LiveData<CartUiState> = MediatorLiveData<CartUiState>().apply {
-        addSource(cartItems) { items ->
-            value = buildUiState(items)
-        }
-        value = CartUiState(emptyList(), 0.0, Resource.Empty)
-    }
-
-    private fun buildUiState(items: List<CartItem>?): CartUiState {
-        val list = items.orEmpty()
-        val total = list.sumOf { it.lineTotal }
-        val contentState = when {
-            list.isEmpty() -> Resource.Empty
-            else -> Resource.Success(Unit)
-        }
-        return CartUiState(list, total, contentState)
+    private fun buildUiState(items: List<CartItem>): CartUiState {
+        val total = items.sumOf { it.lineTotal }
+        val contentState = if (items.isEmpty()) Resource.Empty else Resource.Success(Unit)
+        return CartUiState(items, total, contentState)
     }
 
     fun increment(productId: Int) {
