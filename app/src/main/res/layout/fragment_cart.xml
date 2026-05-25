@@ -65,13 +65,13 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/order_total"
                 android:textAppearance="?attr/textAppearanceLabelLarge" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/textTotalPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

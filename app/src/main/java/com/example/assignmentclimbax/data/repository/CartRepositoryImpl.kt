@@ -5,8 +5,8 @@ import com.example.assignmentclimbax.data.local.entity.CartEntity
 import com.example.assignmentclimbax.data.local.entity.toDomain
 import com.example.assignmentclimbax.data.remote.NetworkErrorMapper
 import com.example.assignmentclimbax.data.remote.api.DummyJsonApi
-import com.example.assignmentclimbax.data.remote.dto.AddCartRequestDto
-import com.example.assignmentclimbax.data.remote.dto.CartProductDto
+import com.example.assignmentclimbax.data.remote.dto.AddCartRequest
+import com.example.assignmentclimbax.data.remote.dto.CartProduct
 import com.example.assignmentclimbax.domain.model.CartItem
 import com.example.assignmentclimbax.domain.model.Product
 import com.example.assignmentclimbax.domain.repository.CartRepository
@@ -64,9 +64,9 @@ class CartRepositoryImpl(
         }
         return try {
             api.addCart(
-                AddCartRequestDto(
+                AddCartRequest(
                     userId = userId,
-                    products = items.map { CartProductDto(id = it.productId, quantity = it.quantity) }
+                    products = items.map { CartProduct(id = it.productId, quantity = it.quantity) }
                 )
             )
             cartDao.clearAll()

@@ -4,7 +4,7 @@ import com.example.assignmentclimbax.data.local.dao.CartDao
 import com.example.assignmentclimbax.data.prefs.SessionDataStore
 import com.example.assignmentclimbax.data.remote.NetworkErrorMapper
 import com.example.assignmentclimbax.data.remote.api.DummyJsonApi
-import com.example.assignmentclimbax.data.remote.dto.LoginRequestDto
+import com.example.assignmentclimbax.data.remote.dto.LoginRequest
 import com.example.assignmentclimbax.domain.model.UserSession
 import com.example.assignmentclimbax.domain.repository.AuthRepository
 
@@ -15,7 +15,7 @@ class AuthRepositoryImpl(
 ) : AuthRepository {
 
     override suspend fun login(username: String, password: String): Result<Int> = try {
-        val response = api.login(LoginRequestDto(username.trim(), password))
+        val response = api.login(LoginRequest(username.trim(), password))
         if (response.id <= 0) {
             Result.failure(Exception("Invalid login response from server."))
         } else {
