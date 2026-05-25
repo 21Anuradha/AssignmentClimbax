@@ -1,14 +1,14 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.AssignmentClimbax" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.Flipzon" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar">false</item>
     </style>
 
-    <style name="Theme.AssignmentClimbax" parent="Base.Theme.AssignmentClimbax" />
+    <style name="Theme.Flipzon" parent="Base.Theme.Flipzon" />
 
-    <style name="Theme.AssignmentClimbax.Main" parent="Theme.Material3.Light.NoActionBar">
+    <style name="Theme.Flipzon.Main" parent="Theme.Material3.Light.NoActionBar">
         <item name="android:statusBarColor">@color/toolbar_bg</item>
         <item name="android:colorBackground">@color/screen_background</item>
         <item name="android:windowBackground">@color/screen_background</item>
@@ -29,7 +29,7 @@
         <item name="elevationOverlayEnabled">false</item>
     </style>
 
-    <style name="Theme.AssignmentClimbax.Login" parent="Theme.AssignmentClimbax">
+    <style name="Theme.Flipzon.Login" parent="Theme.Flipzon">
         <item name="android:statusBarColor">@color/login_black</item>
         <item name="android:navigationBarColor">@color/login_black</item>
         <item name="android:windowBackground">@drawable/bg_login_gradient</item>

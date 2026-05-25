@@ -1,6 +1,6 @@
-# Assignment Climbax — E-Commerce Android App
+# Flipzon App — E-Commerce Android Assignment
 
-Kotlin Android assignment: product feed, search, local cart (Room), DummyJSON login, and checkout.
+**Flipzon** is a simple e-commerce feed app built with the **DummyJSON API**. It demonstrates **Kotlin**, **MVVM**, **Retrofit**, **Room**, and **Kotlin Coroutines & Flow**.
 
 ## Tech Stack
 
@@ -10,9 +10,9 @@ Kotlin Android assignment: product feed, search, local cart (Room), DummyJSON lo
 | Architecture | MVVM + Repository pattern |
 | UI | XML (ViewBinding), Material Design 3 |
 | Networking | Retrofit + OkHttp + Gson |
-| Session | **DataStore Preferences** |
-| Local DB | Room (cart) |
-| Async | Coroutines, Flow, LiveData |
+| Session | DataStore Preferences |
+| Local DB | Room (SQLite) for cart |
+| Concurrency | Coroutines, Flow, LiveData |
 | Images | Coil |
 | DI | Manual (`AppContainer`) |
 
@@ -21,7 +21,7 @@ Kotlin Android assignment: product feed, search, local cart (Room), DummyJSON lo
 Base URL: `https://dummyjson.com/`
 
 - `POST /auth/login` — Login
-- `GET /products?limit=&skip=` — Pagination
+- `GET /products?limit=&skip=` — Paginated product feed
 - `GET /products/search?q=` — Search (400ms debounce)
 - `POST /carts/add` — Checkout
 
@@ -29,84 +29,63 @@ Base URL: `https://dummyjson.com/`
 
 ## Features
 
-### Authentication
-- DummyJSON login API
-- Session stored in DataStore: `id`, `email`, `firstName`, `lastName`, `image`
-- Cold start: Login if no session, else Home (`MainActivity`) with `CLEAR_TASK` (no back stack to login)
-- Logout: clears DataStore session **and** Room cart, returns to Login
+### Authentication & session
+- DummyJSON Login API
+- DataStore: `id`, `email`, `firstName`, `lastName`, `image`
+- Launch: **Home** if session exists, else **Login** (no back stack)
+- Logout: clears session + Room cart → Login
 
-### Top app bar (all tabs)
-- Circular profile image, full name, email (from DataStore only)
-- Logout button
+### Top app bar
+- Profile image, full name, email (from DataStore)
+- Logout
 
-### Home
-- Paginated RecyclerView (10 per page)
+### Home (product feed)
+- Paginated RecyclerView
 - Loading / Error / Empty + Retry
-- Search below toolbar
-- Product card: ID, title, thumbnail, price, add to cart / quantity controls
+- Search with debounce
+- Add to cart → Room
 
-### Cart
-- Room `CartEntity`: `productId`, `title`, `price`, `thumbnail`, `quantity`
+### Cart (offline-first)
+- Room table `cart_items` in database `flipzon_db`
 - Reactive Flow → LiveData
-- Increment / decrement, remove at quantity 0
-- Order total, checkout API with logged-in user id
-- Success → clear cart + Snackbar; failure → keep cart + error Snackbar
+- Increment / decrement; remove at qty 0
+- Checkout API; success clears cart, failure keeps cart
 
-## How Room cart works (local storage)
+## Offline behaviour
 
-Cart items are **not** stored on the server until checkout. They live in SQLite via Room:
+| Screen | Internet OFF |
+|--------|----------------|
+| Home (products) | New feed does not load (API). Previously loaded list may show until refresh. |
+| Cart | Works — items from Room |
 
-| File | Role |
-|------|------|
-| `CartEntity.kt` | Table `cart_items` columns |
-| `CartDao.kt` | Insert / update / delete / observe `Flow` |
-| `AppDatabase.kt` | Room database `assignment_climbax_db` |
-| `CartRepositoryImpl.kt` | Home add-to-cart writes here; Cart tab reads `Flow` |
+## Test cart offline
 
-**Home → Add to Cart:** `CartDao.upsert()` or `updateQuantity()`  
-**Cart tab:** `observeCartItems()` → UI updates automatically  
-**Checkout success:** `clearAll()`  
-**Logout:** session + cart cleared  
+1. Login with internet ON (`emilys` / `emilyspass`)
+2. Add products from Home → open Cart tab
+3. Enable **Airplane mode**
+4. Cart tab still shows items; +/- works
+5. Checkout needs internet again
 
-## Test cart + offline mode
+**Database Inspector:** process `com.example.assignmentclimbax` → `flipzon_db` → `cart_items`
 
-### On the device (quick test)
-
-1. Login with `emilys` / `emilyspass` (internet **ON**).
-2. **Home:** tap **Add to Cart** on 1–2 products → Snackbar + quantity `+ / −` on card.
-3. Open **Cart** tab → items and total price should appear.
-4. Turn **Airplane mode ON** (or disable Wi‑Fi/mobile data).
-5. **Cart** tab again → items still visible (proves Room offline).
-6. Change quantity with `+ / −` → total updates (still offline).
-7. Turn internet **ON** only for **Checkout** (API needs network).
-8. **Do not logout** during cart test — logout clears the local cart by design.
-
-### Android Studio Database Inspector
-
-1. Run the app in **debug** on emulator/device.
-2. **View → Tool Windows → App Inspection** (or **Database Inspector**).
-3. Select process `com.example.assignmentclimbax`.
-4. Open database **`assignment_climbax_db`** → table **`cart_items`**.
-5. Add a product in the app → refresh inspector → new row with `productId`, `title`, `price`, `thumbnail`, `quantity`.
-
-## Project Structure
+## Project structure
 
 ```
 app/src/main/java/com/example/assignmentclimbax/
-├── data/       # remote, local, prefs (SessionDataStore), repositories
-├── domain/     # models, repository interfaces, use cases
+├── data/       # API, Room, DataStore, repositories
+├── domain/     # models, interfaces, use cases
 ├── presentation/
-└── di/         # AppContainer
+└── di/
 ```
 
-## Build & Run
+## Build & run
 
-1. Open in Android Studio
+1. Open project in Android Studio (Gradle root name: **Flipzon**)
 2. Sync Gradle
-3. Run on device/emulator with internet
-4. Login with `emilys` / `emilyspass`
+3. Run on emulator/device
+4. Login → browse → cart → checkout
 
-**Requirements:** `compileSdk 36`, `minSdk 24`
+`compileSdk 36` · `minSdk 24`
 
 ## Submission
 

@@ -22,5 +22,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "AssignmentClimbax"
+rootProject.name = "Flipzon"
 include(":app")

@@ -56,7 +56,7 @@ class AppContainer(context: Context) {
     private val database: AppDatabase = Room.databaseBuilder(
         appContext,
         AppDatabase::class.java,
-        "assignment_climbax_db"
+        "flipzon_db"
     ).build()
 
     private val cartDao = database.cartDao()
