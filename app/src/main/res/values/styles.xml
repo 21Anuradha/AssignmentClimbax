@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <style name="Widget.App.ActionButton" parent="Widget.Material3.Button">
+        <item name="android:background">@drawable/bg_action_button_selector</item>
+        <item name="backgroundTint">@null</item>
+        <item name="android:textColor">@color/action_button_text_color</item>
+        <item name="iconTint">@color/action_button_icon_tint</item>
+        <item name="rippleColor">@color/login_blue_primary</item>
+    </style>
+
     <style name="ShapeAppearance.App.Circle" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>

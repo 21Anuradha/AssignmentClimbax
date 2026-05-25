@@ -61,10 +61,14 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonAddToCart"
+            style="@style/Widget.App.ActionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@string/add_to_cart"
+            app:icon="@drawable/ic_cart"
+            app:iconGravity="textStart"
+            app:iconPadding="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/imageThumbnail" />
 

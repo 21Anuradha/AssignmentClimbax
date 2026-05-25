@@ -24,6 +24,7 @@ class CartFragment : Fragment() {
     }
 
     private lateinit var cartAdapter: CartAdapter
+    private var hasCartItems = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,18 +54,18 @@ class CartFragment : Fragment() {
     private fun observeViewModel() {
         viewModel.cartUiState.observe(viewLifecycleOwner) { uiState ->
             binding.textTotalPrice.text = String.format(Locale.US, "$%.2f", uiState.totalPrice)
+            hasCartItems = uiState.items.isNotEmpty()
+            updateCheckoutEnabled(hasCartItems && viewModel.checkoutState.value !is Resource.Loading)
             when (uiState.contentState) {
                 is Resource.Empty -> {
                     binding.recyclerCart.visibility = View.GONE
                     binding.layoutCartState.visibility = View.VISIBLE
-                    binding.textStateTitle.text = getString(com.example.assignmentclimbax.R.string.empty_cart_title)
-                    binding.textStateMessage.text = getString(com.example.assignmentclimbax.R.string.empty_cart_message)
-                    binding.buttonCheckout.isEnabled = false
+                    binding.textStateTitle.text = getString(R.string.empty_cart_title)
+                    binding.textStateMessage.text = getString(R.string.empty_cart_message)
                 }
                 else -> {
                     binding.layoutCartState.visibility = View.GONE
                     binding.recyclerCart.visibility = View.VISIBLE
-                    binding.buttonCheckout.isEnabled = uiState.items.isNotEmpty()
                     cartAdapter.submitList(uiState.items)
                 }
             }
@@ -73,25 +74,30 @@ class CartFragment : Fragment() {
         viewModel.checkoutState.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is Resource.Loading -> {
-                    binding.buttonCheckout.isEnabled = false
+                    updateCheckoutEnabled(false)
                     binding.progressCheckout.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
                     binding.progressCheckout.visibility = View.GONE
-                    binding.buttonCheckout.isEnabled = false
+                    updateCheckoutEnabled(false)
                     Snackbar.make(binding.root, R.string.checkout_success, Snackbar.LENGTH_LONG).show()
                     viewModel.clearCheckoutState()
                 }
                 is Resource.Error -> {
                     binding.progressCheckout.visibility = View.GONE
-                    binding.buttonCheckout.isEnabled = true
+                    updateCheckoutEnabled(hasCartItems)
                     Snackbar.make(binding.root, state.message, Snackbar.LENGTH_LONG).show()
                     viewModel.clearCheckoutState()
                 }
-                null -> Unit
+                null -> updateCheckoutEnabled(hasCartItems)
                 else -> Unit
             }
         }
+    }
+
+    private fun updateCheckoutEnabled(enabled: Boolean) {
+        binding.buttonCheckout.isEnabled = enabled
+        binding.buttonCheckout.alpha = if (enabled) 1f else 0.6f
     }
 
     override fun onDestroyView() {
