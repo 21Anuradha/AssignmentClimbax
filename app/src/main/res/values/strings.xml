@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Climbax Shop</string>
+<!--    <string name="nav_home">Home</string>-->
+<!--    <string name="nav_cart">Cart</string>-->
+    <string name="search_hint">Search products…</string>
+    <string name="add_to_cart">Add to Cart</string>
+    <string name="error_title">Something went wrong</string>
+    <string name="empty_title">No products found</string>
+    <string name="empty_products">Try a different search or pull to refresh.</string>
+    <string name="retry">Retry</string>
+    <string name="empty_cart_title">Your cart is empty</string>
+    <string name="empty_cart_message">Add items from the Home tab. Cart works offline.</string>
+    <string name="total_price">Total: %1$s</string>
+    <string name="order_total">Order Total</string>
+    <string name="checkout">Checkout</string>
+    <string name="checkout_success">Order placed successfully!</string>
+    <string name="login_title">Sign In</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="login_hint">Use: emilys / emilyspass</string>
+    <string name="home_title">Products</string>
+    <string name="cart_title">My Cart</string>
+    <string name="decrement">-</string>
+    <string name="increment">+</string>
+    <string name="logout">Logout</string>
+</resources>

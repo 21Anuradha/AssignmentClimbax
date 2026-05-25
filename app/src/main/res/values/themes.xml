@@ -1,0 +1,58 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.AssignmentClimbax" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+
+    <style name="Theme.AssignmentClimbax" parent="Base.Theme.AssignmentClimbax" />
+
+    <style name="Theme.AssignmentClimbax.Main" parent="Theme.Material3.Light.NoActionBar">
+        <item name="android:statusBarColor">@color/toolbar_bg</item>
+        <item name="android:colorBackground">@color/screen_background</item>
+        <item name="android:windowBackground">@color/screen_background</item>
+        <item name="colorPrimary">@color/login_blue_primary</item>
+        <item name="colorSurface">@color/card_background</item>
+        <item name="colorSurfaceVariant">@color/card_background</item>
+        <item name="colorSurfaceContainer">@color/card_background</item>
+        <item name="colorSurfaceContainerHigh">@color/card_background</item>
+        <item name="colorSurfaceContainerHighest">@color/card_background</item>
+        <item name="colorSurfaceContainerLow">@color/card_background</item>
+        <item name="colorSurfaceContainerLowest">@color/screen_background</item>
+        <item name="colorOutline">#FFBDBDBD</item>
+        <item name="colorOutlineVariant">#FFE0E0E0</item>
+        <item name="materialCardViewStyle">@style/Widget.App.CardView</item>
+        <item name="materialCardViewElevatedStyle">@style/Widget.App.CardView</item>
+        <item name="materialCardViewFilledStyle">@style/Widget.App.CardView</item>
+        <item name="materialCardViewOutlinedStyle">@style/Widget.App.CardView</item>
+        <item name="elevationOverlayEnabled">false</item>
+    </style>
+
+    <style name="Theme.AssignmentClimbax.Login" parent="Theme.AssignmentClimbax">
+        <item name="android:statusBarColor">@color/login_black</item>
+        <item name="android:navigationBarColor">@color/login_black</item>
+        <item name="android:windowBackground">@drawable/bg_login_gradient</item>
+    </style>
+
+    <style name="Widget.App.SearchTextInputLayout" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/search_input_stroke</item>
+        <item name="boxStrokeWidth">1dp</item>
+        <item name="boxBackgroundColor">@color/search_box_bg</item>
+        <item name="hintTextColor">@color/search_hint</item>
+        <item name="android:textColorHint">@color/search_hint</item>
+        <item name="boxCornerRadiusTopStart">12dp</item>
+        <item name="boxCornerRadiusTopEnd">12dp</item>
+        <item name="boxCornerRadiusBottomStart">12dp</item>
+        <item name="boxCornerRadiusBottomEnd">12dp</item>
+        <item name="startIconDrawable">@android:drawable/ic_menu_search</item>
+        <item name="startIconTint">@color/nav_gray</item>
+    </style>
+
+    <style name="Widget.Login.TextInputLayout" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/login_input_stroke</item>
+        <item name="hintTextColor">@color/login_input_hint</item>
+        <item name="android:textColorHint">@color/login_text_secondary</item>
+        <item name="boxBackgroundColor">@color/login_input_bg</item>
+    </style>
+</resources>
