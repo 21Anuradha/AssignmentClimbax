@@ -13,7 +13,6 @@
         android:layout_margin="12dp"
         android:hint="@string/search_hint"
         app:boxBackgroundColor="@color/search_box_bg"
-        app:boxStrokeColor="@color/search_input_stroke"
         app:boxStrokeWidth="1dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

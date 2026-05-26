@@ -36,7 +36,7 @@
     </style>
 
     <style name="Widget.App.SearchTextInputLayout" parent="Widget.Material3.TextInputLayout.OutlinedBox">
-        <item name="boxStrokeColor">@color/search_input_stroke</item>
+        <item name="boxStrokeColor">#FFBDBDBD</item>
         <item name="boxStrokeWidth">1dp</item>
         <item name="boxBackgroundColor">@color/search_box_bg</item>
         <item name="hintTextColor">@color/search_hint</item>
@@ -50,8 +50,8 @@
     </style>
 
     <style name="Widget.Login.TextInputLayout" parent="Widget.Material3.TextInputLayout.OutlinedBox">
-        <item name="boxStrokeColor">@color/login_input_stroke</item>
-        <item name="hintTextColor">@color/login_input_hint</item>
+        <item name="boxStrokeColor">#FF2A3F5F</item>
+        <item name="hintTextColor">@color/login_text_secondary</item>
         <item name="android:textColorHint">@color/login_text_secondary</item>
         <item name="boxBackgroundColor">@color/login_input_bg</item>
     </style>
