@@ -59,8 +59,6 @@
         android:background="@color/nav_bar_bg"
         app:itemActiveIndicatorStyle="@style/BottomNavActiveIndicatorTransparent"
         app:itemIconTint="@drawable/bottom_nav_item_color"
-        app:itemPaddingBottom="4dp"
-        app:itemPaddingTop="4dp"
         app:itemRippleColor="@android:color/transparent"
         app:itemTextColor="@drawable/bottom_nav_item_color"
         app:labelVisibilityMode="unlabeled"

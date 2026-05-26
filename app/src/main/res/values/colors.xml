@@ -9,7 +9,6 @@
     <color name="login_blue_light">#FF64B5F6</color>
     <color name="login_text_primary">#FFFFFFFF</color>
     <color name="login_text_secondary">#FFB3C5D9</color>
-    <color name="login_card_bg">#E6101828</color>
     <color name="login_input_bg">#FF0A101C</color>
 
     <color name="nav_gray">#FF9E9E9E</color>

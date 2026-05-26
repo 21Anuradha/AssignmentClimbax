@@ -20,11 +20,3 @@ fun CartEntity.toDomain(): CartItem = CartItem(
     thumbnail = thumbnail,
     quantity = quantity
 )
-
-fun CartItem.toEntity(): CartEntity = CartEntity(
-    productId = productId,
-    title = title,
-    price = price,
-    thumbnail = thumbnail,
-    quantity = quantity
-)

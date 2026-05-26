@@ -27,10 +27,7 @@ data class LoginResponse(
     val email: String? = null,
     val firstName: String? = null,
     val lastName: String? = null,
-    val image: String? = null,
-    @SerializedName("accessToken") val accessToken: String? = null,
-    @SerializedName("refreshToken") val refreshToken: String? = null,
-    val token: String? = null
+    val image: String? = null
 )
 
 data class AddCartRequest(

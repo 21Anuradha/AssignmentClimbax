@@ -30,11 +30,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 class AppContainer(context: Context) {
-
+    companion object {
+        const val BASE_URL = "https://dummyjson.com/"
+    }
     private val appContext = context.applicationContext
-
-    val sessionDataStore: SessionDataStore = SessionDataStore(appContext)
-
+    private val sessionDataStore: SessionDataStore = SessionDataStore(appContext)
     private val okHttpClient: OkHttpClient = OkHttpClient.Builder()
         .connectTimeout(30, TimeUnit.SECONDS)
         .readTimeout(30, TimeUnit.SECONDS)
@@ -60,11 +60,9 @@ class AppContainer(context: Context) {
     ).build()
 
     private val cartDao = database.cartDao()
-
-    val productRepository: ProductRepository = ProductRepositoryImpl(api)
-    val cartRepository: CartRepository = CartRepositoryImpl(cartDao, api)
+    private val productRepository: ProductRepository = ProductRepositoryImpl(api)
+    private val cartRepository: CartRepository = CartRepositoryImpl(cartDao, api)
     val authRepository: AuthRepository = AuthRepositoryImpl(api, sessionDataStore, cartDao)
-
     private val getProductsUseCase = GetProductsUseCase(productRepository)
     private val searchProductsUseCase = SearchProductsUseCase(productRepository)
     private val observeCartQuantitiesUseCase = ObserveCartQuantitiesUseCase(cartRepository)
@@ -73,7 +71,6 @@ class AppContainer(context: Context) {
     private val observeCartItemsUseCase = ObserveCartItemsUseCase(cartRepository)
     private val checkoutUseCase = CheckoutUseCase(cartRepository)
     private val loginUseCase = LoginUseCase(authRepository)
-
     val loginViewModelFactory = LoginViewModelFactory(loginUseCase)
     private val decrementCartQuantityUseCase = DecrementCartQuantityUseCase(cartRepository)
 
@@ -92,8 +89,4 @@ class AppContainer(context: Context) {
         checkoutUseCase,
         authRepository
     )
-
-    companion object {
-        const val BASE_URL = "https://dummyjson.com/"
-    }
 }

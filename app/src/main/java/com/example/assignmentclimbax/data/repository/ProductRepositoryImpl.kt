@@ -26,11 +26,7 @@ class ProductRepositoryImpl(
     }
 
     override suspend fun searchProducts(query: String): Result<List<Product>> = try {
-        val products = if (query.isBlank()) {
-            api.getProducts(limit = 30, skip = 0).products
-        } else {
-            api.searchProducts(query).products
-        }
+        val products = api.searchProducts(query).products
         Result.success(products.map { it.toDomain() })
     } catch (e: Exception) {
         Result.failure(Exception(NetworkErrorMapper.map(e), e))

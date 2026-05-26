@@ -122,7 +122,7 @@ class HomeFragment : Fragment() {
         binding.swipeRefresh.isEnabled = true
         binding.layoutState.visibility = View.VISIBLE
         binding.imageState.setImageResource(android.R.drawable.ic_dialog_alert)
-        binding.textStateTitle.text = getString(com.example.assignmentclimbax.R.string.error_title)
+        binding.textStateTitle.text = getString(R.string.error_title)
         binding.textStateMessage.text = message
         binding.buttonRetry.visibility = View.VISIBLE
         binding.buttonRetry.setOnClickListener { viewModel.loadProducts() }
@@ -134,8 +134,8 @@ class HomeFragment : Fragment() {
         binding.swipeRefresh.isEnabled = true
         binding.layoutState.visibility = View.VISIBLE
         binding.imageState.setImageResource(android.R.drawable.ic_menu_search)
-        binding.textStateTitle.text = getString(com.example.assignmentclimbax.R.string.empty_title)
-        binding.textStateMessage.text = getString(com.example.assignmentclimbax.R.string.empty_products)
+        binding.textStateTitle.text = getString(R.string.empty_title)
+        binding.textStateMessage.text = getString(R.string.empty_products)
         binding.buttonRetry.visibility = View.VISIBLE
         binding.buttonRetry.setOnClickListener { viewModel.loadProducts() }
     }

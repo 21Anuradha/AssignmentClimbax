@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">Flipzon</string>
-<!--    <string name="nav_home">Home</string>-->
-<!--    <string name="nav_cart">Cart</string>-->
     <string name="search_hint">Search products…</string>
     <string name="add_to_cart">Add to Cart</string>
     <string name="added_to_cart">%1$s added to cart</string>
@@ -11,7 +9,6 @@
     <string name="retry">Retry</string>
     <string name="empty_cart_title">Your cart is empty</string>
     <string name="empty_cart_message">Add items from the Home tab. Cart works offline.</string>
-    <string name="total_price">Total: %1$s</string>
     <string name="order_total">Order Total</string>
     <string name="checkout">Checkout</string>
     <string name="checkout_success">Order placed successfully!</string>

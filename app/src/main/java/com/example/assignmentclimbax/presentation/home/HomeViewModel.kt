@@ -38,8 +38,7 @@ class HomeViewModel(
     private val _isLoadingMore = MutableLiveData(false)
     val isLoadingMore: LiveData<Boolean> = _isLoadingMore
 
-    private val _hasMorePages = MutableLiveData(true)
-    val hasMorePages: LiveData<Boolean> = _hasMorePages
+    private var hasMorePages = true
 
     val cartQuantities: LiveData<Map<Int, Int>> =
         observeCartQuantitiesUseCase().asLiveData(viewModelScope.coroutineContext)
@@ -68,8 +67,8 @@ class HomeViewModel(
         if (refresh) {
             currentSkip = 0
             accumulatedProducts.clear()
-            _hasMorePages.value = true
-        } else if (_isLoadingMore.value == true || _hasMorePages.value != true) {
+            hasMorePages = true
+        } else if (_isLoadingMore.value == true || !hasMorePages) {
             return
         }
         isSearchMode = false
@@ -84,7 +83,7 @@ class HomeViewModel(
                 .onSuccess { page ->
                     accumulatedProducts.addAll(page.products)
                     currentSkip += page.products.size
-                    _hasMorePages.postValue(page.hasMore)
+                    hasMorePages = page.hasMore
                     _isLoadingMore.postValue(false)
                     _productsState.postValue(
                         if (accumulatedProducts.isEmpty()) Resource.Empty
@@ -117,7 +116,7 @@ class HomeViewModel(
 
     private fun performSearch(query: String) {
         isSearchMode = true
-        _hasMorePages.value = false
+        hasMorePages = false
         loadJob?.cancel()
         _productsState.value = Resource.Loading
         loadJob = viewModelScope.launch {
