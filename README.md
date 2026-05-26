@@ -90,4 +90,4 @@ app/src/main/java/com/example/assignmentclimbax/
 ## Submission
 
 - [ ] Public GitHub repository link
-- [ ] Optional screen recording / GIF
+
